@@ -18,7 +18,7 @@ export class ClassesRouter extends PromiseRouter {
     return req.params.className;
   }
 
-  handleFind(req) {
+  async handleFind(req) {
     const body = Object.assign(req.body, ClassesRouter.JSONFromQuery(req.query));
     const options = ClassesRouter.optionsFromBody(body, req.config.defaultLimit);
     if (req.config.maxLimit && body.limit > req.config.maxLimit) {
@@ -31,7 +31,11 @@ export class ClassesRouter extends PromiseRouter {
     if (typeof body.where === 'string') {
       body.where = JSON.parse(body.where);
     }
-    return rest
+    const date1 = new Date();
+    const second1 = date1.getSeconds();
+    const milisecond1 = date1.getMilliseconds();
+    const minutes1 = date1.getMinutes();
+    const data = await rest
       .find(
         req.config,
         req.auth,
@@ -44,10 +48,25 @@ export class ClassesRouter extends PromiseRouter {
       .then(response => {
         return { response: response };
       });
+    const date2 = new Date();
+    const second2 = date2.getSeconds();
+    const milisecond2 = date2.getMilliseconds();
+    const minutes2 = date2.getMinutes();
+    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    console.log(
+      'Minutes',
+      minutes2 - minutes1,
+      'Second',
+      second2 >= second1 ? second2 - second1 : 60 - second1 + second2,
+      'Milisecond',
+      milisecond2 > milisecond1 ? milisecond2 - milisecond1 : 999 - milisecond1 + milisecond2
+    );
+    console.log(data);
+    return data;
   }
 
   // Returns a promise for a {response} object.
-  handleGet(req) {
+  async handleGet(req) {
     const body = Object.assign(req.body, ClassesRouter.JSONFromQuery(req.query));
     const options = {};
 
@@ -75,8 +94,11 @@ export class ClassesRouter extends PromiseRouter {
     if (typeof body.subqueryReadPreference === 'string') {
       options.subqueryReadPreference = body.subqueryReadPreference;
     }
-
-    return rest
+    const date1 = new Date();
+    const second1 = date1.getSeconds();
+    const milisecond1 = date1.getMilliseconds();
+    const minutes1 = date1.getMinutes();
+    const data = await rest
       .get(
         req.config,
         req.auth,
@@ -103,10 +125,29 @@ export class ClassesRouter extends PromiseRouter {
         }
         return { response: response.results[0] };
       });
+    const date2 = new Date();
+    const second2 = date2.getSeconds();
+    const milisecond2 = date2.getMilliseconds();
+    const minutes2 = date2.getMinutes();
+    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    console.log(
+      'Minutes',
+      minutes2 - minutes1,
+      'Second',
+      second2 >= second1 ? second2 - second1 : 60 - second1 + second2,
+      'Milisecond',
+      milisecond2 > milisecond1 ? milisecond2 - milisecond1 : 999 - milisecond1 + milisecond2
+    );
+    console.log(data);
+    return data;
   }
 
-  handleCreate(req) {
-    return rest.create(
+  async handleCreate(req) {
+    const date1 = new Date();
+    const second1 = date1.getSeconds();
+    const milisecond1 = date1.getMilliseconds();
+    const minutes1 = date1.getMinutes();
+    const data = await rest.create(
       req.config,
       req.auth,
       this.className(req),
@@ -114,11 +155,31 @@ export class ClassesRouter extends PromiseRouter {
       req.info.clientSDK,
       req.info.context
     );
+    const date2 = new Date();
+    const second2 = date2.getSeconds();
+    const milisecond2 = date2.getMilliseconds();
+    const minutes2 = date2.getMinutes();
+    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    console.log(
+      'Minutes',
+      minutes2 - minutes1,
+      'Second',
+      second2 >= second1 ? second2 - second1 : 60 - second1 + second2,
+      'Milisecond',
+      milisecond2 > milisecond1 ? milisecond2 - milisecond1 : 999 - milisecond1 + milisecond2
+    );
+    console.log(data);
+
+    return data;
   }
 
-  handleUpdate(req) {
+  async handleUpdate(req) {
     const where = { objectId: req.params.objectId };
-    return rest.update(
+    const date1 = new Date();
+    const second1 = date1.getSeconds();
+    const milisecond1 = date1.getMilliseconds();
+    const minutes1 = date1.getMinutes();
+    const data = await rest.update(
       req.config,
       req.auth,
       this.className(req),
@@ -127,14 +188,49 @@ export class ClassesRouter extends PromiseRouter {
       req.info.clientSDK,
       req.info.context
     );
+    const date2 = new Date();
+    const second2 = date2.getSeconds();
+    const milisecond2 = date2.getMilliseconds();
+    const minutes2 = date2.getMinutes();
+    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    console.log(
+      'Minutes',
+      minutes2 - minutes1,
+      'Second',
+      second2 >= second1 ? second2 - second1 : 60 - second1 + second2,
+      'Milisecond',
+      milisecond2 > milisecond1 ? milisecond2 - milisecond1 : 999 - milisecond1 + milisecond2
+    );
+    console.log(data);
+    return data;
   }
 
-  handleDelete(req) {
-    return rest
+  async handleDelete(req) {
+    const date1 = new Date();
+    const second1 = date1.getSeconds();
+    const milisecond1 = date1.getMilliseconds();
+    const minutes1 = date1.getMinutes();
+    const data = await rest
       .del(req.config, req.auth, this.className(req), req.params.objectId, req.info.context)
       .then(() => {
         return { response: {} };
       });
+    const date2 = new Date();
+    const second2 = date2.getSeconds();
+    const milisecond2 = date2.getMilliseconds();
+    const minutes2 = date2.getMinutes();
+    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    console.log(
+      'Minutes',
+      minutes2 - minutes1,
+      'Second',
+      second2 >= second1 ? second2 - second1 : 60 - second1 + second2,
+      'Milisecond',
+      milisecond2 > milisecond1 ? milisecond2 - milisecond1 : 999 - milisecond1 + milisecond2
+    );
+    console.log(data);
+
+    return data;
   }
 
   static JSONFromQuery(query) {
